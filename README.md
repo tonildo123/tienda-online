@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### se instalo paquetes de reactrouter, sweetalert, bootstrap y firebase y fontawesome
+### https://reactrouter.com/en/main/getting-started/installation#basic-installation
+### https://sweetalert2.github.io/
+### https://cdnjs.com/libraries/font-awesome
