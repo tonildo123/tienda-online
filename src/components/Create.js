@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
 import {db} from '../firebaseConfig/firebase';
 
-
+// https://www.youtube.com/watch?v=A5yjN73Aj7s
 
 const Create = () => {
 
 const [descripcion, setDescripcion] = useState('');
 const [precio, setPrecio] = useState(0);
+const [imagen, setImagen] = useState('');
 const navigate = useNavigate();
 
 const prodcutsCollection = collection(db, 'productos');
@@ -33,8 +34,6 @@ const store = async (e) =>{
                           type="text"
                           className='form-control'  
                           />
-                          
-                          
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Precio</label>
@@ -44,8 +43,15 @@ const store = async (e) =>{
                           type="number"
                           className='form-control'  
                           />
-                          
-                          
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Imagen</label>
+                        <input 
+                          value={imagen}
+                          onChange={ (e) => setImagen(e.target.files[0])}
+                          type="file"
+                          className='form-control'  
+                          />
                     </div>
 
                     <button type='submit' className='btn btn-primary'>Guardar</button>
