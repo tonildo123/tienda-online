@@ -82,6 +82,7 @@ useEffect(() => {
                         <tr>
                             <th>Descripcion</th>
                             <th>Precio</th>
+                            <th>Producto</th>
                             <th>Actions</th>
                         </tr>
                      </thead>
@@ -89,6 +90,18 @@ useEffect(() => {
                         {products.map((product)=>(<tr key={product.id}>
                             <td>{product.descripcion}</td>
                             <td>{product.precio}</td>
+                            <td>
+                            <img
+                          alt="algo"
+                          src={product.fotobase64}
+                          style={{height:'50px',
+                                  width:'30px',
+                                    }}  
+                          data-toggle="modal"
+                          data-target="#ModalPreViewImg"
+                          className="img-responsive"
+                        ></img>
+                                </td>
                             <td>
                                 <Link to={`/edit/${product.id}`}  className="btn btn-light">
                                     <i className="fa-solid fa-pencil"></i>
