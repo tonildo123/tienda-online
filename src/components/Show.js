@@ -99,7 +99,7 @@ useEffect(() => {
                                 </button>
                                   <Button 
                                     variant="primary"
-                                    href="www.google.com"
+                                    href={`https://api.whatsapp.com/send?phone=3814757398&text=${product.descripcion}%20con%20precio $ %20${product.precio}%20total%20&source=&data=`}
                                     rel={"noopener noreferrer"}>
                                       Comprar
                                   </Button>
