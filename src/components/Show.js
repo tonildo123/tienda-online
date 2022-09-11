@@ -6,7 +6,9 @@ import {db} from '../firebaseConfig/firebase';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { async } from '@firebase/util';
-import { Button } from 'bootstrap';
+// import { Button, Card,CardGroup } from 'bootstrap';
+import {Card, CardGroup, Button} from "react-bootstrap";
+// import   '../styles/showCss.css'
 const MySwal = withReactContent(Swal);
 
 
@@ -75,9 +77,38 @@ useEffect(() => {
         <div className="row ">
             <div className="col">
                 <div className="d-grid gap-2">
-                    <Link to="/create" className='btn btn-secondary mt-2 mb-2'>Create</Link>
+                    <Link to="/create" className='btn btn-secondary mt-2 mb-2'>Cargar Producto</Link>
                 </div>
-                 <table className='table table-dark table-hover'>
+                <div>
+                <CardGroup>
+                  {products.map((product) => (
+                          <Card className={"card-grid"} key={product.id}>
+                              <Card.Img className={"card-img"} variant="bottom" src={product.fotobase64}/>
+                              <Card.Body>
+                                  <Card.Title><strong>{product.descripcion}</strong></Card.Title>
+                                  <Card.Text>
+                                      <p>$ {product.precio}</p>
+                                  </Card.Text>
+                                  <Link to={`/edit/${product.id}`}  className="btn btn-light">
+                                    <i className="fa-solid fa-pencil"></i>
+                                </Link>
+                                <button 
+                                    onClick={() => {confirmDelete(product.id)}}
+                                    className="btn btn-danger">
+                                <i className="fa-solid fa-trash-can"></i>
+                                </button>
+                                  <Button 
+                                    variant="primary"
+                                    href="www.google.com"
+                                    rel={"noopener noreferrer"}>
+                                      Comprar
+                                  </Button>
+                              </Card.Body>
+                          </Card>
+                  ))}
+              </CardGroup>
+                </div>
+                 {/* <table className='table table-dark table-hover'>
                      <thead>
                         <tr>
                             <th>Descripcion</th>
@@ -91,17 +122,17 @@ useEffect(() => {
                             <td>{product.descripcion}</td>
                             <td>{product.precio}</td>
                             <td>
-                            <img
-                          alt="algo"
-                          src={product.fotobase64}
-                          style={{height:'50px',
-                                  width:'30px',
-                                    }}  
-                          data-toggle="modal"
-                          data-target="#ModalPreViewImg"
-                          className="img-responsive"
-                        ></img>
-                                </td>
+                              <img
+                                alt="algo"
+                                src={product.fotobase64}
+                                style={{height:'50px',
+                                        width:'30px',
+                                          }}  
+                                data-toggle="modal"
+                                data-target="#ModalPreViewImg"
+                                className="img-responsive"
+                              ></img>
+                              </td>
                             <td>
                                 <Link to={`/edit/${product.id}`}  className="btn btn-light">
                                     <i className="fa-solid fa-pencil"></i>
@@ -114,7 +145,7 @@ useEffect(() => {
                             </td>
                         </tr>))}
                      </tbody>
-                 </table>
+                 </table> */}
             </div>
         </div>
     </div>
