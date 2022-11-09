@@ -63,6 +63,7 @@ const confirmDelete = (id) =>{
 
 useEffect(() => {
   getProductos();
+  // eslint-disable-next-line
 }, [])
 
 
@@ -71,7 +72,7 @@ const renderCard = (card, index) =>{
   return(
     <div className="col-md-3">
     <Card style={{width:'100%', marginBottom:'1rem', marginTop:'1rem'}} key={index} className='box'>
-      <Card.Img variant='top' src ={card.foto} style={{height:'70vh'}}/>
+      <Card.Img variant='top' src ={card.foto} style={{height:'65vh'}}/>
       <Card.Body>
         <Card.Title>{card.descripcion}</Card.Title>
         <Card.Text>$ {card.precio}</Card.Text>
