@@ -1,15 +1,16 @@
 import { initializeApp } from "firebase/app";
 import {getFirestore} from '@firebase/firestore';
-const firebaseConfig = {
-  apiKey: "AIzaSyCLzei6rM1wfx1ySiVKtlOaobE6zQ5Bfag",
-  authDomain: "react-crud-2ebd7.firebaseapp.com",
-  projectId: "react-crud-2ebd7",
-  storageBucket: "react-crud-2ebd7.appspot.com",
-  messagingSenderId: "803902781234",
-  appId: "1:803902781234:web:17531a9d97ac883409092b"
-};
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAF7v7tGCoW-JWewSEmQ7c9BwrspXaLTqg",
+  authDomain: "tienda-online-b2907.firebaseapp.com",
+  projectId: "tienda-online-b2907",
+  storageBucket: "tienda-online-b2907.appspot.com",
+  messagingSenderId: "209636417189",
+  appId: "1:209636417189:web:e835d9752a8ba25f63774c"
+};
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
- 
+
+

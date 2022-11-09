@@ -1,24 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {collection, getDocs, getDoc, deleteDoc, doc} from 'firebase/firestore';
+import {collection, getDocs, deleteDoc, doc} from 'firebase/firestore';
 import {db} from '../firebaseConfig/firebase';
-
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { async } from '@firebase/util';
-// import { Button, Card,CardGroup } from 'bootstrap';
-import {Card, CardGroup, Button} from "react-bootstrap";
-// import   '../styles/showCss.css'
-const MySwal = withReactContent(Swal);
+import {Card,  Button} from "react-bootstrap";
+import NavbarTienda from './NavbarTienda';
+import {Link} from 'react-router-dom';
 
 
 const Show = () => {
-// 1ero confirguramos los hooks
+
 const [products, setProduct] = useState([]);
-// 2do referenciamos db firestore
 const productColection = collection(db, "productos");
-// 3ro funcion para mostrar todos los DOCS
-const getProdcuts = async () => {
+
+const getProductos = async () => {
     
     const data = await getDocs(productColection);
     console.log('data');
@@ -30,127 +24,96 @@ const getProdcuts = async () => {
     console.log('products : ');
     console.log(products);
 }
-// 4to fujncion para deleto doc
+
 
 const deleteProduct = async (id)=>{
 
     const productDoc = doc(db, "productos", id);
     await deleteDoc(productDoc);
 
-    getProdcuts();
+    getProductos();
 
 }
-// 5to funcion de confirmacion de alert con sweet alert
+
 
 const confirmDelete = (id) =>{
 
+    console.log(id)
+
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: '¿Esta usted seguro?',
+        text: "No podras revertir esto!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Si, Eliminar!'
       }).then((result) => {
         if (result.isConfirmed) {
             deleteProduct(id);
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Eliminado!',
+            'Su producto fue borrado.',
             'success'
           )
         }
       })
 
 }
-// 6to usamos useEffect
+
 useEffect(() => {
-  getProdcuts();
+  getProductos();
 }, [])
 
-// 7mo devolvemos la vista en nuestro component
+
+
+const renderCard = (card, index) =>{
+  return(
+    <div className="col-md-3">
+    <Card style={{width:'100%', marginBottom:'1rem', marginTop:'1rem'}} key={index} className='box'>
+      <Card.Img variant='top' src ={card.foto} style={{height:'70vh'}}/>
+      <Card.Body>
+        <Card.Title>{card.descripcion}</Card.Title>
+        <Card.Text>$ {card.precio}</Card.Text>
+        <div className=' container row'>
+          <div className="col-8">
+            <Button 
+            onClick={()=>{console.log('item : ', JSON.stringify(card, null, 4))}}
+            variant="primary">Comprar</Button>
+          </div>
+          <div className="col-2" 
+              style={{
+                flexDirection:'column',
+              }}
+              onClick={()=>{confirmDelete(card.id)}}
+              >  
+            <ion-icon name="trash-outline" style={{color:'red'}}></ion-icon>
+          </div>
+          <div className="col-2" 
+              style={{flexDirection:'column'}}
+              onClick={()=>{console.log('Editar....')}}> 
+              <Link to={`/edit/${card.id}`} style={{color:'red'}}>
+                <ion-icon name="create-outline"></ion-icon>
+              </Link>
+          </div>
+        </div>        
+      </Card.Body>
+    </Card>
+    </div>
+  );
+}
 
   return (
-    <>
-    <div className="container">
-        <div className="row ">
-            <div className="col">
-                <div className="d-grid gap-2">
-                    <Link to="/create" className='btn btn-secondary mt-2 mb-2'>Cargar Producto</Link>
-                </div>
-                <div>
-                <CardGroup>
-                  {products.map((product) => (
-                          <Card className={"card-grid"} key={product.id}>
-                              <Card.Img className={"card-img"} variant="bottom" src={product.fotobase64}/>
-                              <Card.Body>
-                                  <Card.Title><strong>{product.descripcion}</strong></Card.Title>
-                                  <Card.Text>
-                                      <p>$ {product.precio}</p>
-                                  </Card.Text>
-                                  <Link to={`/edit/${product.id}`}  className="btn btn-light">
-                                    <i className="fa-solid fa-pencil"></i>
-                                </Link>
-                                <button 
-                                    onClick={() => {confirmDelete(product.id)}}
-                                    className="btn btn-danger">
-                                <i className="fa-solid fa-trash-can"></i>
-                                </button>
-                                  <Button 
-                                    variant="primary"
-                                    href={`https://api.whatsapp.com/send?phone=3814757398&text=${product.descripcion}%20con%20precio $ %20${product.precio}%20total%20&source=&data=`}
-                                    rel={"noopener noreferrer"}>
-                                      Comprar
-                                  </Button>
-                              </Card.Body>
-                          </Card>
-                  ))}
-              </CardGroup>
-                </div>
-                 {/* <table className='table table-dark table-hover'>
-                     <thead>
-                        <tr>
-                            <th>Descripcion</th>
-                            <th>Precio</th>
-                            <th>Producto</th>
-                            <th>Actions</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        {products.map((product)=>(<tr key={product.id}>
-                            <td>{product.descripcion}</td>
-                            <td>{product.precio}</td>
-                            <td>
-                              <img
-                                alt="algo"
-                                src={product.fotobase64}
-                                style={{height:'50px',
-                                        width:'30px',
-                                          }}  
-                                data-toggle="modal"
-                                data-target="#ModalPreViewImg"
-                                className="img-responsive"
-                              ></img>
-                              </td>
-                            <td>
-                                <Link to={`/edit/${product.id}`}  className="btn btn-light">
-                                    <i className="fa-solid fa-pencil"></i>
-                                </Link>
-                                <button 
-                                    onClick={() => {confirmDelete(product.id)}}
-                                    className="btn btn-danger">
-                                <i className="fa-solid fa-trash-can"></i>
-                                </button>
-                            </td>
-                        </tr>))}
-                     </tbody>
-                 </table> */}
-            </div>
+    <div style={{backgroundColor:'grey'}}>
+      <NavbarTienda />
+      <div>
+        <div className="row">           
+          {products.map(renderCard)}
         </div>
-    </div>
-    </>
+      </div>
+    </div>   
   )
 }
 
 export default Show;
+

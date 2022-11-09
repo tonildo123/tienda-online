@@ -2,17 +2,15 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
 import {db} from '../firebaseConfig/firebase';
+import NavbarTienda from './NavbarTienda';
 
-// import vectoricon from '../Assets/vectoricon.png';
 
 
-// https://www.youtube.com/watch?v=A5yjN73Aj7s
 
 const Create = () => {
 
 const [descripcion, setDescripcion] = useState('');
-const [precio, setPrecio] = useState(0);
-// const [imagen, setImagen] = useState(null);
+const [precio, setPrecio] = useState();
 const [images, setimages] = useState([]);
 const [imagen64, setImagen64] = useState(null);
 const navigate = useNavigate();
@@ -36,18 +34,14 @@ const prodcutsCollection = collection(db, 'productos');
 
   const store = async (e) =>{
       e.preventDefault();
-      console.log('--------------------------------------------------------')
-      console.log(e)
-      console.log('--------------------------------------------------------')
-      // convertirBase64(imagen);
-      await addDoc(prodcutsCollection, {descripcion: descripcion,fotobase64:imagen64, precio:precio})
+      
+      
+      await addDoc(prodcutsCollection, {descripcion: descripcion,foto:imagen64, precio:precio, idUsuario:'Tony'})
       navigate('/');
   }
       const changeInput = (e) => {
-      //esto es el indice que se le dará a cada imagen, a partir del indice de la ultima foto
+      
       let indexImg;
-
-      //aquí evaluamos si ya hay imagenes antes de este input, para saber en dónde debe empezar el index del proximo array
       if (images.length > 0) {
         indexImg = images[images.length - 1].index + 1;
       } else {
@@ -64,7 +58,7 @@ const prodcutsCollection = collection(db, 'productos');
       const files = e.currentTarget.files;
       convertirBase64(e.currentTarget.files);
   
-      //el array con las imagenes nuevas
+      
       const arrayImages = [];
   
       Object.keys(files).forEach((i) => {
@@ -72,7 +66,7 @@ const prodcutsCollection = collection(db, 'productos');
   
         let url = URL.createObjectURL(file);
   
-        //console.log(file);
+        
         arrayImages.push({
           index: indexInicial,
           name: file.name,
@@ -83,12 +77,10 @@ const prodcutsCollection = collection(db, 'productos');
         indexInicial++;
       });
   
-      //despues de haber concluido el ciclo retornamos las nuevas imagenes
       return arrayImages;
     }
 
     function deleteImg(indice) {
-      //console.log("borrar img " + indice);
   
       const newImgs = images.filter(function (element) {
         return element.index !== indice;
@@ -98,13 +90,17 @@ const prodcutsCollection = collection(db, 'productos');
     }
 
   return (
-    <div className='container'>
-        <div className='row'>
-            <div className='col'>
-                <h1>Crear Producto con imagen</h1>
+    <div className='container' style={{backgroundColor:'#34495E'}}>
+        <div className='row' style={{}}> 
+        <NavbarTienda />
+            <div className='col-md-3' style={{backgroundColor:'#34495E'}}></div>
+            <div className='col-md-6' style={{backgroundColor:'#5D6D7E', 
+                height:'98vh',  marginBottom:'1rem', marginTop:'1rem',
+                alignItems:'center', borderRadius:'1rem', padding:'2rem'}}>
+                <h1>CARGAR PRODUCTO</h1>
                 <form onSubmit={store}>
                     <div className="mb-3">
-                        <label className="form-label">Descripcion</label>
+                        <label className="form-label">DESCRIPCION</label>
                         <input 
                           value={descripcion}
                           onChange={ (e) => setDescripcion(e.target.value)}
@@ -113,7 +109,7 @@ const prodcutsCollection = collection(db, 'productos');
                           />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Precio</label>
+                        <label className="form-label">PRECIO $$$</label>
                         <input 
                           value={precio}
                           onChange={ (e) => setPrecio(e.target.value)}
@@ -122,19 +118,20 @@ const prodcutsCollection = collection(db, 'productos');
                           />
                     </div>
                     <div className="mb-3">
-                    <label className="btn btn-warning">
-                      <span>Seleccionar archivos </span>
+                    <label className="btn btn-warning"  style={{width:'100%'}}>
+                      <span>SELECCIONAR IMAGEN</span>
                       <input hidden type="file" multiple onChange={changeInput}></input>
                     </label>
+                    <button type='submit' className='btn btn-dark' style={{width:'100%', color:'white'}}>GUARDAR</button>
                     </div>
-
-                    <button type='submit' className='btn btn-primary'>Guardar</button>
+                    
                 </form>
                 <div
                     className='card'
                     style={{
                       justifyContent:'center',
                       alignItems: 'center',
+                      
                     }}>
                     {images.map((imagen) => (
                     <div className="col-6 col-sm-4 col-lg-3 square" key={imagen.index}>
@@ -158,17 +155,12 @@ const prodcutsCollection = collection(db, 'productos');
                       </div>
                     </div>
                   ))}
-                    <div className='card-body'>
-                      <h4 className='card-title'>Imagen</h4>
-                      <p className='card-text text-secondary'>Loremnwjencfqwjencwjpnfjqebi
-                        fbweibfhiweb ew weghiruweugfihqwegfi weif fwerqcw4rwercewrcewcewrcewcrew
-                        crerrwtyvbtryttr
-                        btybttrnuynymtykmubokpyvbynvtijyvtenyij</p>
-                    </div>
-                
+                    <div className='card-body' >
+                      <h4 className='card-title'>IMAGEN..</h4>
+                    </div>                
                 </div>
-
             </div>
+            <div className='col-md-3' style={{backgroundColor:'#34495E'}}></div>
         </div>
     </div>
   )
