@@ -36,6 +36,7 @@ const Edit = () => {
 
     useEffect( () => {
         getProductsById(id)
+        // eslint-disable-next-line
         
         }, [])
 

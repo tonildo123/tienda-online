@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import NavbarTienda from '../components/NavbarTienda';
 
 const Register = () => {
+
   useEffect(() => {
-
     console.log('funciono')
-
+    // eslint-disable-next-line
   }, [])
   
 

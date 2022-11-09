@@ -4,9 +4,8 @@ import NavbarTienda from '../components/NavbarTienda';
 const login = () => {
 
   useEffect(() => {
-
     console.log('funciono')
-
+    // eslint-disable-next-line
   }, [])
   
 
