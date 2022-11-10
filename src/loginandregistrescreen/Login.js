@@ -1,19 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import NavbarTienda from '../components/NavbarTienda';
 
-const login = () => {
+const Login = () => {
 
-  useEffect(() => {
-    console.log('funciono')
-    // eslint-disable-next-line
-  }, [])
   
 
   const [user, setUser] = useState('');
   const [pass, setPass] = useState();
 
 
-const login =()=>{
+
+const handlelogin =()=>{
   console.log('me logueo')
 }
 
@@ -27,7 +24,7 @@ const login =()=>{
                 height:'98vh',  marginBottom:'1rem', marginTop:'1rem',
                 alignItems:'center', borderRadius:'1rem', padding:'2rem'}}>
                 <h1>INICIAR SESIÓN</h1>
-                <form onSubmit={login}>
+                <form onSubmit={handlelogin}>
                     <div className="mb-3">
                         <label className="form-label">Usuario</label>
                         <input 
@@ -59,4 +56,4 @@ const login =()=>{
   )
 }
 
-export default login
+export default Login

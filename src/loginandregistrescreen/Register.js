@@ -1,20 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import NavbarTienda from '../components/NavbarTienda';
 
 const Register = () => {
 
-  useEffect(() => {
-    console.log('funciono')
-    // eslint-disable-next-line
-  }, [])
-  
+ 
 
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState();
-  const [pass2, setPass2] = useState();
+const [user, setUser] = useState('');
+const [pass, setPass] = useState();
+const [pass2, setPass2] = useState();
 
 
-const register =()=>{
+const handleregister =()=>{
   console.log('user', user)
   console.log('pass 1', pass)
   console.log('pass 2', pass2)
@@ -28,7 +24,7 @@ const register =()=>{
                 height:'98vh',  marginBottom:'1rem', marginTop:'1rem',
                 alignItems:'center', borderRadius:'1rem', padding:'2rem'}}>
                 <h1>REGISTRARME</h1>
-                <form onSubmit={register}>
+                <form onSubmit={handleregister}>
                     <div className="mb-3">
                         <label className="form-label">Usuario</label>
                         <input 
