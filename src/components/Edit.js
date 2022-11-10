@@ -22,7 +22,7 @@ const Edit = () => {
     }
 
 
-    const getProductsById = async(id) =>{
+    const getProductsById = async() =>{
         const producto = await getDoc(doc(db, 'productos', id));
         if (producto.exists()) 
         {
@@ -35,7 +35,7 @@ const Edit = () => {
     }
 
     useEffect( () => {
-        getProductsById(id)
+        getProductsById()
         // eslint-disable-next-line
         
         }, [])
