@@ -1,6 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, 
+    // useEffect
+} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { 
+    // getDoc, 
+    doc, updateDoc } from 'firebase/firestore';
 import {db} from '../firebaseConfig/firebase';
 import NavbarTienda from './NavbarTienda';
 
@@ -10,6 +14,7 @@ const Edit = () => {
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState();
 
+    
     const navigate = useNavigate();
     const {id} =useParams();
 
@@ -22,23 +27,23 @@ const Edit = () => {
     }
 
 
-    const getProductsById = async() =>{
-        const producto = await getDoc(doc(db, 'productos', id));
-        if (producto.exists()) 
-        {
-            setDescripcion(producto.data().descripcion);
-            setPrecio(producto.data().precio);
+    // const getProductsById = async() =>{
+    //     const producto = await getDoc(doc(db, 'productos', id));
+    //     if (producto.exists()) 
+    //     {
+    //         setDescripcion(producto.data().descripcion);
+    //         setPrecio(producto.data().precio);
 
-        } else {
-            console.log('not exists')
-        }
-    }
+    //     } else {
+    //         console.log('not exists')
+    //     }
+    // }
 
-    useEffect( () => {
-        getProductsById()
-        // eslint-disable-next-line
+    // useEffect( () => {
+    //     getProductsById()
+    //     // eslint-disable-next-line
         
-        }, [])
+    //     }, [])
 
 return (    
     <div className='container' style={{backgroundColor:'#34495E'}}>
